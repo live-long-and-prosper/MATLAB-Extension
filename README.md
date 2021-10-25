@@ -32,7 +32,7 @@
 		- [SHFileDelete](#SHFileDelete) 调用Windows文件资源管理器进行文件、目录删除操作，支持批量操作、显示进度、撤销、对话框等高级功能。（仅限Windows）
 		- [SHFileMove](#SHFileMove) 调用Windows文件资源管理器进行文件、目录移动和重命名操作，支持批量操作、显示进度、撤销、对话框等高级功能。（仅限Windows）
 		- [SHFileRename](#SHFileRename) 调用Windows文件资源管理器进行文件、目录重命名操作，支持批量操作、显示进度、撤销、对话框等高级功能。（仅限Windows）
-		- [StaticJavaPath](#StaticJavaPath) 确认Java路径已添加到静态路径列表
+		- [StaticJavaPath](#StaticJavaPath) 添加静态Java路径
 	- [+Graph2D](#Graph2D)
 		- [MultiShadowedLines](#MultiShadowedLines) 绘制多条误差阴影线图
 	- [+Graph3D](#Graph3D)
@@ -841,15 +841,13 @@ ErrorCode(1,1)int32，错误代码。如果操作成功，返回0；否则返回
 
 AnyOperationsAborted(1,1)logical，指示是否有操作被用户取消。
 ### StaticJavaPath
-确认Java路径已添加到静态路径列表
+添加静态Java路径
 
-内置javaaddpath只能将Java路径添加到动态列表，因此每次运行程序都要重新添加。本函数能够遍历静态Java路径列表，检查是否存在指定的Java路径；若不存在，则添加之。
-
-注意，静态添加的Java路径必须重启MATLAB以后才能生效
+内置javaaddpath只能添加临时Java路径。一旦MATLAB主程序关闭，就会丢失，下次再打开又要重新添加。本函数解决此问题，将Java路径添加到静态列表，下次启动MATLAB无需再次添加。
 
 输入参数：Path(1,1)string，要确认的Java路径
 
-返回值：Exist(1,1)logical，Java路径是否在调用本函数之前就已存在于静态列表中。注意，存在于静态列表中并不意味着MATLAB已经加载了它。例如运行本函数两次，第2次必定返回true，但新添加的路径仍然必须重启MATLAB才能生效。
+返回值：Exist(1,1)logical，Java路径是否在调用本函数之前就已存在于静态列表中。
 ## +Graph2D
 ### MultiShadowedLines
 绘制多条误差阴影线图
